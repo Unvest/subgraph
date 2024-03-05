@@ -1,0 +1,56 @@
+{
+  "mainnet": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 16672033
+    }
+  },
+  "optimism": {
+    "VestingTokenFactory": {
+      "address": "0x07A1eB6f6339DAf50ce17230b866dc9B30806B88",
+      "startBlock": 75734781
+    }
+  },
+  "bsc": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 25839683
+    }
+  },
+  "matic": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 39519545
+    }
+  },
+  "arbitrum-one": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 62869309
+    }
+  },
+  "avalanche": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 26516754
+    }
+  },
+  "goerli": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 8637150
+    }
+  },
+  "mumbai": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 32986606
+    }
+  },
+  "optimism-goerli": {
+    "VestingTokenFactory": {
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 6561829
+    }
+  }
+}

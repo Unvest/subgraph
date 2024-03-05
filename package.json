@@ -1,0 +1,46 @@
+{
+  "name": "@unvest/subgraph",
+  "author": {
+    "name": "JA <@ubinatus>",
+    "url": "https://unvest.io"
+  },
+  "license": "GPL-3.0-or-later",
+  "version": "1.0.0",
+  "description": "Unvest Subgraph",
+  "repository": "https://github.com/Unvest/subgraph",
+  "scripts": {
+    "clean": "rm -rf .turbo .next node_modules",
+    "codegen": "graph codegen",
+    "build:polygon": "graph build --network matic",
+    "build:mainnet": "graph build --network mainnet",
+    "build:optimism": "graph build --network optimism",
+    "build:bsc": "graph build --network bsc",
+    "build:arbitrum": "graph build --network arbitrum-one",
+    "build:avalanche": "graph build --network avalanche",
+    "build:goerli": "graph build --network goerli",
+    "build:mumbai": "graph build --network mumbai",
+    "build:optimism-goerli": "graph build --network optimism-goerli",
+    "deploy:polygon": "pnpm build:polygon && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-polygon",
+    "deploy:mainnet": "pnpm build:mainnet && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-mainnet",
+    "deploy:optimism": "pnpm build:optimism && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-optimism",
+    "deploy:bsc": "pnpm build:bsc && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-bsc",
+    "deploy:arbitrum": "pnpm build:arbitrum && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-arbitrum",
+    "deploy:avalanche": "pnpm build:avalanche && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-avalanche",
+    "deploy:goerli": "pnpm build:goerli && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-goerli",
+    "deploy:mumbai": "pnpm build:mumbai && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-mumbai",
+    "deploy:optimism-goerli": "pnpm build:optimism-goerli && graph deploy --node https://api.thegraph.com/deploy/ unvest/unvest-v2-optimism-goerli",
+    "deploy:all-mainnets": "pnpm deploy:polygon && pnpm deploy:mainnet && pnpm deploy:optimism && pnpm deploy:bsc && pnpm deploy:arbitrum && pnpm deploy:avalanche",
+    "deploy:all-testnets": "pnpm deploy:goerli && pnpm deploy:mumbai && pnpm deploy:optimism-goerli",
+    "deploy:all": "pnpm deploy:all-testnets && pnpm deploy:all-mainnets",
+    "deploy:optimism-studio": "yarn build:mainnet && graph deploy --studio unvest-v2-optimism"
+  },
+  "devDependencies": {
+    "@graphprotocol/graph-cli": "^0.68.5",
+    "@graphprotocol/graph-ts": "^0.33.0",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "eslint": "^8.46.0",
+    "eslint-config-prettier": "^9.1.0",
+    "matchstick-as": "^0.6.0"
+  }
+}

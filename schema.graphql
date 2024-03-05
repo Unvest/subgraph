@@ -1,0 +1,110 @@
+# Redeem tokens (ERC20)
+type RedeemToken @entity(immutable: true) {
+  id: String! # address
+  name: String!
+  symbol: String!
+  decimals: Int!
+  vestingTokens: [VestingToken!]! @derivedFrom(field: "redeemToken")
+}
+
+# LiquidVestingTokenFactory
+type VestingToken @entity {
+  id: String! # address
+  name: String!
+  symbol: String!
+  decimals: Int!
+  redeemToken: RedeemToken! # address
+  # Milestones
+  milestones: [Milestone!]! @derivedFrom(field: "vestingToken")
+  # Deployer
+  deployer: String!
+  # Vesting balance
+  balance: VestingBalance! @derivedFrom(field: "vestingToken")
+  # Holders
+  holdersCount: Int!
+  recipientsCount: Int!
+  holders: [HolderBalance!]! @derivedFrom(field: "vestingToken")
+  # DistributionBatches
+  distributionBatches: [DistributionBatch!]! @derivedFrom(field: "vestingToken")
+  # Tx info
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+# LiquidVestingToken
+type Initialized @entity(immutable: true) {
+  id: Bytes!
+  version: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Claim @entity(immutable: true) {
+  id: Bytes!
+  vestingToken: VestingToken
+  claimer: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Transfer @entity(immutable: true) {
+  id: Bytes!
+  vestingToken: VestingToken
+  from: Bytes! # address
+  to: Bytes! # address
+  value: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  distributionBatch: DistributionBatch # Optional. Not all transfers will have a distribution batch. Just those that were minted
+}
+
+type DistributionBatch @entity(immutable: false) {
+  id: String!
+  vestingToken: VestingToken!
+  totalAmount: BigInt!
+  from: Bytes! # address
+  recipients: [Transfer!]! @derivedFrom(field: "distributionBatch")
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VestingBalance @entity {
+  id: String!
+  vestingToken: VestingToken!
+  allocation: BigInt!
+  claimed: BigInt!
+  claimable: BigInt!
+  locked: BigInt!
+  updatedAt: BigInt!
+  lastClaimedAt: BigInt
+}
+
+type HolderBalance @entity {
+  id: String!
+  user: String!
+  vestingToken: VestingToken!
+  isRecipient: Boolean!
+  allocation: BigInt!
+  claimed: BigInt!
+  claimable: BigInt!
+  locked: BigInt!
+  balance: BigInt!
+  updatedAt: BigInt!
+  lastClaimedAt: BigInt
+  transferredIn: BigInt!
+  transferredOut: BigInt!
+}
+
+type Milestone @entity {
+  id: String!
+  vestingToken: VestingToken!
+  timestamp: BigInt
+  ramp: Int
+  percentage: BigInt
+}

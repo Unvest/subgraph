@@ -1,0 +1,64 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: VestingTokenFactory
+    network: optimism
+    source:
+      abi: VestingTokenFactory
+      address: "0x07A1eB6f6339DAf50ce17230b866dc9B30806B88"
+      startBlock: 75734781
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Platform
+        - RedeemToken
+        - VestingToken
+        - UserBalance
+        - VestingBalance
+      abis:
+        - name: VestingTokenFactory
+          file: ./abis/VestingTokenFactory.json
+        - name: VestingToken
+          file: ./abis/VestingToken.json
+        - name: ERC20Metadata
+          file: ./abis/ERC20Metadata.json
+      eventHandlers:
+        - event: VestingTokenCreated(indexed address,address)
+          handler: handleVestingTokenCreated
+      file: ./src/vesting-token-factory.ts
+templates:
+  - kind: ethereum/contract
+    name: VestingToken
+    network: optimism
+    source:
+      abi: VestingToken
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Platform
+        - RedeemToken
+        - VestingToken
+        - UserBalance
+        - VestingBalance
+        - Initialized
+        - Claim
+        - Transfer
+      abis:
+        - name: VestingToken
+          file: ./abis/VestingToken.json
+        - name: ERC20Metadata
+          file: ./abis/ERC20Metadata.json
+      eventHandlers:
+        - event: Initialized(uint8)
+          handler: handleInitialized
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/vesting-token.ts
