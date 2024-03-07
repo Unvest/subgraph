@@ -10,7 +10,8 @@ import {
   OwnershipTransferred as OwnershipTransferredEvent,
   VestingTokenCreated as VestingTokenCreatedEvent,
 } from '../generated/VestingTokenFactoryV3/VestingTokenFactoryV3'
-import { createVestingToken, getVestingToken } from './utils/VestingToken'
+
+import { createVestingToken } from './utils/VestingToken'
 import { ensureVestingTokenFactory, getVestingTokenFactory } from './utils/Factory'
 import {
   ensureCustomClaimFee,
@@ -22,45 +23,46 @@ import {
   updateVestingTokenCustomTransferFeeToggle,
   updateVestingTokenCustomTransferFeeValue,
 } from './utils/CustomTransferFee'
+import { ensureUnderlyingToken } from './utils/UnderlyingToken'
 import { updateFactoryFeeCollector, updateFactoryGlobalClaimFee, updateFactoryGlobalTransferFee } from './utils/Fee'
 
 export function handleVestingTokenV3Created(event: VestingTokenCreatedEvent): void {
   // Handle deployed `VestingToken`
-  const vestingToken = createVestingToken(event.params.vestingToken, event.params.underlyingToken, event, 'v3')
+  const underlyingToken = createVestingToken(event.params.vestingToken, event.params.underlyingToken, event, 'v3')
 
   // Initialize the custom fee as disabled initially (custom fees only applied to v3)
-  ensureCustomClaimFee(vestingToken, event)
-  ensureCustomTransferFee(vestingToken, event)
+  ensureCustomClaimFee(underlyingToken, event)
+  ensureCustomTransferFee(underlyingToken, event)
 
   // Listen for the new VestingToken events (version v3)
   NewVestingTokenV3.create(event.params.vestingToken)
 }
 
 export function handleCustomClaimFeeChange(event: CustomClaimFeeChangeEvent): void {
-  let vestingToken = getVestingToken(event.params.vestingToken)
+  let vestingToken = ensureUnderlyingToken(event.params.underlyingToken)
   if (vestingToken) {
     updateVestingTokenCustomClaimFeeValue(vestingToken, event)
   }
 }
 
 export function handleCustomClaimFeeToggle(event: CustomClaimFeeToggleEvent): void {
-  let vestingToken = getVestingToken(event.params.vestingToken)
-  if (vestingToken) {
-    updateVestingTokenCustomClaimFeeToggle(vestingToken, event)
+  let underlyingToken = ensureUnderlyingToken(event.params.underlyingToken)
+  if (underlyingToken) {
+    updateVestingTokenCustomClaimFeeToggle(underlyingToken, event)
   }
 }
 
 export function handleCustomTransferFeeChange(event: CustomTransferFeeChangeEvent): void {
-  let vestingToken = getVestingToken(event.params.vestingToken)
-  if (vestingToken) {
-    updateVestingTokenCustomTransferFeeValue(vestingToken, event)
+  let underlyingToken = ensureUnderlyingToken(event.params.underlyingToken)
+  if (underlyingToken) {
+    updateVestingTokenCustomTransferFeeValue(underlyingToken, event)
   }
 }
 
 export function handleCustomTransferFeeToggle(event: CustomTransferFeeToggleEvent): void {
-  let vestingToken = getVestingToken(event.params.vestingToken)
-  if (vestingToken) {
-    updateVestingTokenCustomTransferFeeToggle(vestingToken, event)
+  let underlyingToken = ensureUnderlyingToken(event.params.underlyingToken)
+  if (underlyingToken) {
+    updateVestingTokenCustomTransferFeeToggle(underlyingToken, event)
   }
 }
 

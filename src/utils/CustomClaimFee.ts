@@ -1,6 +1,6 @@
 import { BigInt, Value, ethereum } from '@graphprotocol/graph-ts'
 
-import { VestingToken, VestingTokenCustomClaimFee } from '../../generated/schema'
+import { CustomClaimFee, UnderlyingToken } from '../../generated/schema'
 import {
   CustomClaimFeeChange as CustomClaimFeeChangeEvent,
   CustomClaimFeeToggle as CustomClaimFeeToggleEvent,
@@ -9,14 +9,14 @@ import {
 import { ONE_HOUR } from './Fee'
 
 /**
- * Instantiates the `VestingTokenCustomClaimFee` in a disabled custom fee state.
+ * Instantiates the `CustomClaimFee` in a disabled custom fee state.
  */
-export function ensureCustomClaimFee(vestingToken: VestingToken, event: ethereum.Event): VestingTokenCustomClaimFee {
-  const customClaimFeeId = Value.fromString(vestingToken.id).toBytes()
-  let customClaimFee = VestingTokenCustomClaimFee.load(customClaimFeeId)
+export function ensureCustomClaimFee(underlyingToken: UnderlyingToken, event: ethereum.Event): CustomClaimFee {
+  const underlyingTokenId = Value.fromString(underlyingToken.id).toBytes()
+  let customClaimFee = CustomClaimFee.load(underlyingTokenId)
 
   if (!customClaimFee) {
-    customClaimFee = new VestingTokenCustomClaimFee(customClaimFeeId)
+    customClaimFee = new CustomClaimFee(underlyingTokenId)
     customClaimFee.isEnabled = false
     customClaimFee.currentCustomValue = BigInt.zero()
     customClaimFee.nextCustomValue = BigInt.zero()
@@ -24,7 +24,7 @@ export function ensureCustomClaimFee(vestingToken: VestingToken, event: ethereum
     customClaimFee.willBeEnabled = false
     customClaimFee.enableChangeAt = BigInt.zero()
 
-    customClaimFee.vestingToken = vestingToken.id
+    customClaimFee.underlyingToken = underlyingToken.id
 
     customClaimFee.updatedAt = event.block.timestamp
   }
@@ -33,10 +33,10 @@ export function ensureCustomClaimFee(vestingToken: VestingToken, event: ethereum
 }
 
 export function updateVestingTokenCustomClaimFeeValue(
-  vestingToken: VestingToken,
+  underlyingToken: UnderlyingToken,
   event: CustomClaimFeeChangeEvent,
 ): void {
-  let customClaimFee = ensureCustomClaimFee(vestingToken, event)
+  let customClaimFee = ensureCustomClaimFee(underlyingToken, event)
 
   // Update the previous custom transfer fee is applicable.
   if (customClaimFee.nextChangeAt <= event.block.timestamp) {
@@ -50,10 +50,10 @@ export function updateVestingTokenCustomClaimFeeValue(
 }
 
 export function updateVestingTokenCustomClaimFeeToggle(
-  vestingToken: VestingToken,
+  underlyingToken: UnderlyingToken,
   event: CustomClaimFeeToggleEvent,
 ): void {
-  let customClaimFee = ensureCustomClaimFee(vestingToken, event)
+  let customClaimFee = ensureCustomClaimFee(underlyingToken, event)
 
   // Update the previous custom transfer fee enabled state is applicable.
   if (customClaimFee.enableChangeAt <= event.block.timestamp) {

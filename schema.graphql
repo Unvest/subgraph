@@ -24,7 +24,7 @@ type VestingTokenFactory @entity {
   version: ProtocolVersion!
 }
 
-type VestingTokenCustomTransferFee @entity {
+type CustomTransferFee @entity {
   id: Bytes!
   isEnabled: Boolean!
   currentCustomValue: BigInt!
@@ -33,11 +33,11 @@ type VestingTokenCustomTransferFee @entity {
   willBeEnabled: Boolean!
   enableChangeAt: BigInt!
 
-  vestingToken: VestingToken!
+  underlyingToken: UnderlyingToken!
 
   updatedAt: BigInt!
 }
-type VestingTokenCustomClaimFee @entity {
+type CustomClaimFee @entity {
   id: Bytes!
   isEnabled: Boolean!
   currentCustomValue: BigInt!
@@ -46,18 +46,22 @@ type VestingTokenCustomClaimFee @entity {
   willBeEnabled: Boolean!
   enableChangeAt: BigInt!
 
-  vestingToken: VestingToken!
+  underlyingToken: UnderlyingToken!
 
   updatedAt: BigInt!
 }
 
-# Redeem tokens (ERC20)
-type RedeemToken @entity(immutable: true) {
+# UnderlyingToken (ERC20)
+type UnderlyingToken @entity(immutable: true) {
   id: String! # address
   name: String!
   symbol: String!
   decimals: Int!
-  vestingTokens: [VestingToken!]! @derivedFrom(field: "redeemToken")
+  # Vesting tokens
+  vestingTokens: [VestingToken!]! @derivedFrom(field: "underlyingToken")
+  # Custom fees
+  customTransferFee: CustomTransferFee @derivedFrom(field: "underlyingToken")
+  customClaimFee: CustomClaimFee @derivedFrom(field: "underlyingToken")
 }
 
 # VestingToken
@@ -66,7 +70,7 @@ type VestingToken @entity {
   name: String!
   symbol: String!
   decimals: Int!
-  redeemToken: RedeemToken! # address
+  underlyingToken: UnderlyingToken! # address
   # Milestones
   milestones: [Milestone!]! @derivedFrom(field: "vestingToken")
   # Deployer
@@ -85,9 +89,6 @@ type VestingToken @entity {
   transactionHash: Bytes!
   # Misc
   version: ProtocolVersion!
-  # Custom tranfer fee
-  customTransferFee: VestingTokenCustomTransferFee @derivedFrom(field: "vestingToken")
-  customClaimFee: VestingTokenCustomClaimFee @derivedFrom(field: "vestingToken")
 }
 
 type Claim @entity(immutable: true) {

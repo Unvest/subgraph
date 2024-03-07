@@ -2,44 +2,20 @@
   {
     "type": "constructor",
     "inputs": [
-      {
-        "name": "implementationAddress",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "feeCollectorAddress",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "feePercentageValue",
-        "type": "uint64",
-        "internalType": "uint64"
-      },
+      { "name": "implementationAddress", "type": "address", "internalType": "address" },
+      { "name": "feeCollectorAddress", "type": "address", "internalType": "address" },
+      { "name": "transferFeePercentage", "type": "uint64", "internalType": "uint64" },
       { "name": "claimFeeValue", "type": "uint64", "internalType": "uint64" }
     ],
     "stateMutability": "nonpayable"
   },
-  {
-    "type": "function",
-    "name": "acceptOwnership",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
+  { "type": "function", "name": "acceptOwnership", "inputs": [], "outputs": [], "stateMutability": "nonpayable" },
   {
     "type": "function",
     "name": "claimFeeData",
-    "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" }
-    ],
+    "inputs": [{ "name": "underlyingToken", "type": "address", "internalType": "address" }],
     "outputs": [
-      {
-        "name": "feeCollectorAddress",
-        "type": "address",
-        "internalType": "address"
-      },
+      { "name": "feeCollectorAddress", "type": "address", "internalType": "address" },
       { "name": "claimFeeValue", "type": "uint64", "internalType": "uint64" }
     ],
     "stateMutability": "view"
@@ -50,29 +26,19 @@
     "inputs": [
       { "name": "name", "type": "string", "internalType": "string" },
       { "name": "symbol", "type": "string", "internalType": "string" },
-      {
-        "name": "underlyingTokenAddress",
-        "type": "address",
-        "internalType": "address"
-      },
+      { "name": "underlyingTokenAddress", "type": "address", "internalType": "address" },
       {
         "name": "milestonesArray",
         "type": "tuple[]",
         "internalType": "struct IVestingToken.Milestone[]",
         "components": [
           { "name": "timestamp", "type": "uint64", "internalType": "uint64" },
-          {
-            "name": "ramp",
-            "type": "uint8",
-            "internalType": "enum IVestingToken.Ramp"
-          },
+          { "name": "ramp", "type": "uint8", "internalType": "enum IVestingToken.Ramp" },
           { "name": "percentage", "type": "uint64", "internalType": "uint64" }
         ]
       }
     ],
-    "outputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" }
-    ],
+    "outputs": [{ "name": "vestingToken", "type": "address", "internalType": "address" }],
     "stateMutability": "nonpayable"
   },
   {
@@ -117,13 +83,7 @@
     "outputs": [{ "name": "", "type": "uint64", "internalType": "uint64" }],
     "stateMutability": "pure"
   },
-  {
-    "type": "function",
-    "name": "nextSalt",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
+  { "type": "function", "name": "nextSalt", "inputs": [], "outputs": [], "stateMutability": "nonpayable" },
   {
     "type": "function",
     "name": "owner",
@@ -138,69 +98,53 @@
     "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
     "stateMutability": "view"
   },
+  { "type": "function", "name": "renounceOwnership", "inputs": [], "outputs": [], "stateMutability": "nonpayable" },
   {
     "type": "function",
-    "name": "renounceOwnership",
-    "inputs": [],
+    "name": "setCustomClaimFee",
+    "inputs": [
+      { "name": "underlyingToken", "type": "address", "internalType": "address" },
+      { "name": "newFeeValue", "type": "uint64", "internalType": "uint64" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setCustomTransferFee",
+    "inputs": [
+      { "name": "underlyingToken", "type": "address", "internalType": "address" },
+      { "name": "newFeePercentage", "type": "uint64", "internalType": "uint64" }
+    ],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "type": "function",
     "name": "setFeeCollector",
-    "inputs": [
-      {
-        "name": "newFeeCollector",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
+    "inputs": [{ "name": "newFeeCollector", "type": "address", "internalType": "address" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "type": "function",
     "name": "setGlobalClaimFee",
-    "inputs": [
-      { "name": "newFeeValue", "type": "uint64", "internalType": "uint64" }
-    ],
+    "inputs": [{ "name": "newFeeValue", "type": "uint64", "internalType": "uint64" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "type": "function",
     "name": "setGlobalTransferFee",
-    "inputs": [
-      { "name": "newFeePercentage", "type": "uint64", "internalType": "uint64" }
-    ],
+    "inputs": [{ "name": "newFeePercentage", "type": "uint64", "internalType": "uint64" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "type": "function",
-    "name": "setVestingTokenClaimFee",
+    "name": "toggleCustomClaimFee",
     "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" },
-      { "name": "newFeeValue", "type": "uint64", "internalType": "uint64" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "setVestingTokenTransferFee",
-    "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" },
-      { "name": "newFeePercentage", "type": "uint64", "internalType": "uint64" }
-    ],
-    "outputs": [],
-    "stateMutability": "nonpayable"
-  },
-  {
-    "type": "function",
-    "name": "toggleVestingTokenClaimFee",
-    "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" },
+      { "name": "underlyingToken", "type": "address", "internalType": "address" },
       { "name": "enable", "type": "bool", "internalType": "bool" }
     ],
     "outputs": [],
@@ -208,9 +152,9 @@
   },
   {
     "type": "function",
-    "name": "toggleVestingTokenTransferFee",
+    "name": "toggleCustomTransferFee",
     "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" },
+      { "name": "underlyingToken", "type": "address", "internalType": "address" },
       { "name": "enable", "type": "bool", "internalType": "bool" }
     ],
     "outputs": [],
@@ -219,63 +163,33 @@
   {
     "type": "function",
     "name": "transferFeeData",
-    "inputs": [
-      { "name": "vestingToken", "type": "address", "internalType": "address" }
-    ],
+    "inputs": [{ "name": "underlyingToken", "type": "address", "internalType": "address" }],
     "outputs": [
-      {
-        "name": "feeCollectorAddress",
-        "type": "address",
-        "internalType": "address"
-      },
-      {
-        "name": "transferFeePercentage",
-        "type": "uint64",
-        "internalType": "uint64"
-      }
+      { "name": "feeCollectorAddress", "type": "address", "internalType": "address" },
+      { "name": "transferFeePercentage", "type": "uint64", "internalType": "uint64" }
     ],
     "stateMutability": "view"
   },
   {
     "type": "function",
     "name": "transferOwnership",
-    "inputs": [
-      { "name": "newOwner", "type": "address", "internalType": "address" }
-    ],
+    "inputs": [{ "name": "newOwner", "type": "address", "internalType": "address" }],
     "outputs": [],
     "stateMutability": "nonpayable"
   },
   {
     "type": "function",
     "name": "vestingTokens",
-    "inputs": [
-      {
-        "name": "underlyingToken",
-        "type": "address",
-        "internalType": "address"
-      }
-    ],
-    "outputs": [
-      { "name": "", "type": "address[]", "internalType": "address[]" }
-    ],
+    "inputs": [{ "name": "underlyingToken", "type": "address", "internalType": "address" }],
+    "outputs": [{ "name": "", "type": "address[]", "internalType": "address[]" }],
     "stateMutability": "view"
   },
   {
     "type": "event",
     "name": "CustomClaimFeeChange",
     "inputs": [
-      {
-        "name": "vestingToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "claimFeeValue",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
+      { "name": "underlyingToken", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "claimFeeValue", "type": "uint64", "indexed": false, "internalType": "uint64" }
     ],
     "anonymous": false
   },
@@ -283,18 +197,8 @@
     "type": "event",
     "name": "CustomClaimFeeToggle",
     "inputs": [
-      {
-        "name": "vestingToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "enable",
-        "type": "bool",
-        "indexed": false,
-        "internalType": "bool"
-      }
+      { "name": "underlyingToken", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "enable", "type": "bool", "indexed": false, "internalType": "bool" }
     ],
     "anonymous": false
   },
@@ -302,18 +206,8 @@
     "type": "event",
     "name": "CustomTransferFeeChange",
     "inputs": [
-      {
-        "name": "vestingToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "transferFeePercentage",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
+      { "name": "underlyingToken", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "transferFeePercentage", "type": "uint64", "indexed": false, "internalType": "uint64" }
     ],
     "anonymous": false
   },
@@ -321,76 +215,35 @@
     "type": "event",
     "name": "CustomTransferFeeToggle",
     "inputs": [
-      {
-        "name": "vestingToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "enable",
-        "type": "bool",
-        "indexed": false,
-        "internalType": "bool"
-      }
+      { "name": "underlyingToken", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "enable", "type": "bool", "indexed": false, "internalType": "bool" }
     ],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "FeeCollectorChange",
-    "inputs": [
-      {
-        "name": "feeCollector",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
-    ],
+    "inputs": [{ "name": "feeCollector", "type": "address", "indexed": true, "internalType": "address" }],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "GlobalClaimFeeChange",
-    "inputs": [
-      {
-        "name": "claimFeeValue",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
-    ],
+    "inputs": [{ "name": "claimFeeValue", "type": "uint64", "indexed": false, "internalType": "uint64" }],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "GlobalTransferFeeChange",
-    "inputs": [
-      {
-        "name": "transferFeePercentage",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
-    ],
+    "inputs": [{ "name": "transferFeePercentage", "type": "uint64", "indexed": false, "internalType": "uint64" }],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "OwnershipTransferStarted",
     "inputs": [
-      {
-        "name": "previousOwner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "newOwner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
+      { "name": "previousOwner", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "newOwner", "type": "address", "indexed": true, "internalType": "address" }
     ],
     "anonymous": false
   },
@@ -398,18 +251,8 @@
     "type": "event",
     "name": "OwnershipTransferred",
     "inputs": [
-      {
-        "name": "previousOwner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "newOwner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      }
+      { "name": "previousOwner", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "newOwner", "type": "address", "indexed": true, "internalType": "address" }
     ],
     "anonymous": false
   },
@@ -417,18 +260,8 @@
     "type": "event",
     "name": "VestingTokenCreated",
     "inputs": [
-      {
-        "name": "underlyingToken",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "vestingToken",
-        "type": "address",
-        "indexed": false,
-        "internalType": "address"
-      }
+      { "name": "underlyingToken", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "vestingToken", "type": "address", "indexed": false, "internalType": "address" }
     ],
     "anonymous": false
   },
@@ -438,15 +271,11 @@
   {
     "type": "error",
     "name": "OwnableInvalidOwner",
-    "inputs": [
-      { "name": "owner", "type": "address", "internalType": "address" }
-    ]
+    "inputs": [{ "name": "owner", "type": "address", "internalType": "address" }]
   },
   {
     "type": "error",
     "name": "OwnableUnauthorizedAccount",
-    "inputs": [
-      { "name": "account", "type": "address", "internalType": "address" }
-    ]
+    "inputs": [{ "name": "account", "type": "address", "internalType": "address" }]
   }
 ]

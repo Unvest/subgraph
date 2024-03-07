@@ -1,6 +1,6 @@
 import { BigInt, Value, ethereum } from '@graphprotocol/graph-ts'
 
-import { VestingToken, VestingTokenCustomTransferFee } from '../../generated/schema'
+import { CustomTransferFee, UnderlyingToken } from '../../generated/schema'
 import {
   CustomTransferFeeChange as CustomTransferFeeChangeEvent,
   CustomTransferFeeToggle as CustomTransferFeeToggleEvent,
@@ -9,17 +9,14 @@ import {
 import { ONE_HOUR } from './Fee'
 
 /**
- * Instantiates the `VestingTokenCustomTransferFee` in a disabled custom fee state.
+ * Instantiates the `CustomTransferFee` in a disabled custom fee state.
  */
-export function ensureCustomTransferFee(
-  vestingToken: VestingToken,
-  event: ethereum.Event,
-): VestingTokenCustomTransferFee {
-  const customTransferFeeId = Value.fromString(vestingToken.id).toBytes()
-  let customTransferFee = VestingTokenCustomTransferFee.load(customTransferFeeId)
+export function ensureCustomTransferFee(underlyingToken: UnderlyingToken, event: ethereum.Event): CustomTransferFee {
+  const underlyingTokenId = Value.fromString(underlyingToken.id).toBytes()
+  let customTransferFee = CustomTransferFee.load(underlyingTokenId)
 
   if (!customTransferFee) {
-    customTransferFee = new VestingTokenCustomTransferFee(customTransferFeeId)
+    customTransferFee = new CustomTransferFee(underlyingTokenId)
     customTransferFee.isEnabled = false
     customTransferFee.currentCustomValue = BigInt.zero()
     customTransferFee.nextCustomValue = BigInt.zero()
@@ -27,7 +24,7 @@ export function ensureCustomTransferFee(
     customTransferFee.willBeEnabled = false
     customTransferFee.enableChangeAt = BigInt.zero()
 
-    customTransferFee.vestingToken = vestingToken.id
+    customTransferFee.underlyingToken = underlyingToken.id
 
     customTransferFee.updatedAt = event.block.timestamp
   }
@@ -36,10 +33,10 @@ export function ensureCustomTransferFee(
 }
 
 export function updateVestingTokenCustomTransferFeeValue(
-  vestingToken: VestingToken,
+  underlyingToken: UnderlyingToken,
   event: CustomTransferFeeChangeEvent,
 ): void {
-  let customTransferFee = ensureCustomTransferFee(vestingToken, event)
+  let customTransferFee = ensureCustomTransferFee(underlyingToken, event)
 
   // Update the previous custom transfer fee is applicable.
   if (customTransferFee.nextChangeAt <= event.block.timestamp) {
@@ -53,10 +50,10 @@ export function updateVestingTokenCustomTransferFeeValue(
 }
 
 export function updateVestingTokenCustomTransferFeeToggle(
-  vestingToken: VestingToken,
+  underlyingToken: UnderlyingToken,
   event: CustomTransferFeeToggleEvent,
 ): void {
-  let customTransferFee = ensureCustomTransferFee(vestingToken, event)
+  let customTransferFee = ensureCustomTransferFee(underlyingToken, event)
 
   // Update the previous custom transfer fee enabled state is applicable.
   if (customTransferFee.enableChangeAt <= event.block.timestamp) {

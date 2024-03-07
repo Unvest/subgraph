@@ -17,7 +17,7 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - Platform
-        - RedeemToken
+        - UnderlyingToken
         - VestingToken
         - VestingTokenFactory
         - UserBalance
@@ -44,8 +44,8 @@ dataSources:
     network: optimism
     source:
       abi: VestingTokenFactoryV3
-      address: "0x1324C2dEa55DDB5e2dDD808698E38CdB92Dfd0be"
-      startBlock: 117090274
+      address: "0x208D9FB018dE04B31D5495691BE51CB5205d5cD5"
+      startBlock: 117096931
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -95,7 +95,7 @@ templates:
       language: wasm/assemblyscript
       entities:
         - Platform
-        - RedeemToken
+        - UnderlyingToken
         - VestingToken
         - UserBalance
         - VestingBalance
@@ -128,7 +128,7 @@ templates:
       language: wasm/assemblyscript
       entities:
         - Platform
-        - RedeemToken
+        - UnderlyingToken
         - VestingToken
         - UserBalance
         - VestingBalance

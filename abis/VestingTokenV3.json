@@ -47,13 +47,7 @@
     "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
     "stateMutability": "view"
   },
-  {
-    "type": "function",
-    "name": "claim",
-    "inputs": [],
-    "outputs": [],
-    "stateMutability": "payable"
-  },
+  { "type": "function", "name": "claim", "inputs": [], "outputs": [], "stateMutability": "payable" },
   {
     "type": "function",
     "name": "claimFeeData",
@@ -129,11 +123,7 @@
     "inputs": [
       { "name": "recipient", "type": "address", "internalType": "address" },
       { "name": "amount", "type": "uint256", "internalType": "uint256" },
-      {
-        "name": "claimableAmountOfImport",
-        "type": "uint256",
-        "internalType": "uint256"
-      },
+      { "name": "claimableAmountOfImport", "type": "uint256", "internalType": "uint256" },
       { "name": "unlocked", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
@@ -145,11 +135,7 @@
     "inputs": [
       { "name": "recipients", "type": "address[]", "internalType": "address[]" },
       { "name": "amounts", "type": "uint256[]", "internalType": "uint256[]" },
-      {
-        "name": "claimableAmountsOfImport",
-        "type": "uint256[]",
-        "internalType": "uint256[]"
-      },
+      { "name": "claimableAmountsOfImport", "type": "uint256[]", "internalType": "uint256[]" },
       { "name": "unlocked", "type": "uint256", "internalType": "uint256" }
     ],
     "outputs": [],
@@ -161,22 +147,14 @@
     "inputs": [
       { "name": "name", "type": "string", "internalType": "string" },
       { "name": "symbol", "type": "string", "internalType": "string" },
-      {
-        "name": "underlyingTokenAddress",
-        "type": "address",
-        "internalType": "address"
-      },
+      { "name": "underlyingTokenAddress", "type": "address", "internalType": "address" },
       {
         "name": "milestonesArray",
         "type": "tuple[]",
         "internalType": "struct IVestingToken.Milestone[]",
         "components": [
           { "name": "timestamp", "type": "uint64", "internalType": "uint64" },
-          {
-            "name": "ramp",
-            "type": "uint8",
-            "internalType": "enum IVestingToken.Ramp"
-          },
+          { "name": "ramp", "type": "uint8", "internalType": "enum IVestingToken.Ramp" },
           { "name": "percentage", "type": "uint64", "internalType": "uint64" }
         ]
       }
@@ -215,16 +193,8 @@
         "type": "tuple",
         "internalType": "struct VestingToken.Metadata",
         "components": [
-          {
-            "name": "claimedAmountAfterTransfer",
-            "type": "uint256",
-            "internalType": "uint256"
-          },
-          {
-            "name": "claimedBalance",
-            "type": "uint256",
-            "internalType": "uint256"
-          }
+          { "name": "claimedAmountAfterTransfer", "type": "uint256", "internalType": "uint256" },
+          { "name": "claimedBalance", "type": "uint256", "internalType": "uint256" }
         ]
       }
     ],
@@ -241,11 +211,7 @@
         "internalType": "struct IVestingToken.Milestone[]",
         "components": [
           { "name": "timestamp", "type": "uint64", "internalType": "uint64" },
-          {
-            "name": "ramp",
-            "type": "uint8",
-            "internalType": "enum IVestingToken.Ramp"
-          },
+          { "name": "ramp", "type": "uint8", "internalType": "enum IVestingToken.Ramp" },
           { "name": "percentage", "type": "uint64", "internalType": "uint64" }
         ]
       }
@@ -308,13 +274,7 @@
     "type": "function",
     "name": "underlyingToken",
     "inputs": [],
-    "outputs": [
-      {
-        "name": "",
-        "type": "address",
-        "internalType": "contract ERC20Upgradeable"
-      }
-    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "contract ERC20Upgradeable" }],
     "stateMutability": "view"
   },
   {
@@ -335,24 +295,9 @@
     "type": "event",
     "name": "Approval",
     "inputs": [
-      {
-        "name": "owner",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "spender",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "value",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
+      { "name": "owner", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "spender", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "value", "type": "uint256", "indexed": false, "internalType": "uint256" }
     ],
     "anonymous": false
   },
@@ -360,50 +305,23 @@
     "type": "event",
     "name": "Claim",
     "inputs": [
-      {
-        "name": "claimer",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
-      {
-        "name": "amount",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
+      { "name": "claimer", "type": "address", "indexed": true, "internalType": "address" },
+      { "name": "amount", "type": "uint256", "indexed": false, "internalType": "uint256" }
     ],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "Initialized",
-    "inputs": [
-      {
-        "name": "version",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
-    ],
+    "inputs": [{ "name": "version", "type": "uint64", "indexed": false, "internalType": "uint64" }],
     "anonymous": false
   },
   {
     "type": "event",
     "name": "MilestoneReached",
     "inputs": [
-      {
-        "name": "milestoneIndex",
-        "type": "uint256",
-        "indexed": true,
-        "internalType": "uint256"
-      },
-      {
-        "name": "percentage",
-        "type": "uint64",
-        "indexed": false,
-        "internalType": "uint64"
-      }
+      { "name": "milestoneIndex", "type": "uint256", "indexed": true, "internalType": "uint256" },
+      { "name": "percentage", "type": "uint64", "indexed": false, "internalType": "uint64" }
     ],
     "anonymous": false
   },
@@ -411,19 +329,9 @@
     "type": "event",
     "name": "Transfer",
     "inputs": [
-      {
-        "name": "from",
-        "type": "address",
-        "indexed": true,
-        "internalType": "address"
-      },
+      { "name": "from", "type": "address", "indexed": true, "internalType": "address" },
       { "name": "to", "type": "address", "indexed": true, "internalType": "address" },
-      {
-        "name": "value",
-        "type": "uint256",
-        "indexed": false,
-        "internalType": "uint256"
-      }
+      { "name": "value", "type": "uint256", "indexed": false, "internalType": "uint256" }
     ],
     "anonymous": false
   },
@@ -437,11 +345,7 @@
     "name": "AddressInsufficientBalance",
     "inputs": [{ "name": "account", "type": "address", "internalType": "address" }]
   },
-  {
-    "type": "error",
-    "name": "ClaimableAmountOfImportIsGreaterThanExpected",
-    "inputs": []
-  },
+  { "type": "error", "name": "ClaimableAmountOfImportIsGreaterThanExpected", "inputs": [] },
   {
     "type": "error",
     "name": "ERC20InsufficientAllowance",
@@ -480,11 +384,7 @@
     "name": "ERC20InvalidSpender",
     "inputs": [{ "name": "spender", "type": "address", "internalType": "address" }]
   },
-  {
-    "type": "error",
-    "name": "EqualPercentagesOnlyAllowedBeforeLinear",
-    "inputs": []
-  },
+  { "type": "error", "name": "EqualPercentagesOnlyAllowedBeforeLinear", "inputs": [] },
   { "type": "error", "name": "FailedInnerCall", "inputs": [] },
   { "type": "error", "name": "InputArraysMustHaveSameLength", "inputs": [] },
   { "type": "error", "name": "InsufficientClaimFee", "inputs": [] },

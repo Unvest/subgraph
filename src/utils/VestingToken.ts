@@ -1,8 +1,8 @@
 import { Address, ethereum } from '@graphprotocol/graph-ts'
 
-import { VestingToken } from '../../generated/schema'
+import { UnderlyingToken, VestingToken } from '../../generated/schema'
 
-import { ensureRedeemToken } from './ReedemToken'
+import { ensureUnderlyingToken } from './UnderlyingToken'
 import { ERC20Metadata } from '../../generated/VestingTokenFactoryV2/ERC20Metadata'
 
 /**
@@ -10,18 +10,20 @@ import { ERC20Metadata } from '../../generated/VestingTokenFactoryV2/ERC20Metada
  * - Underlying Asset
  * - Transaction related metadata
  * - Protocol version
+ *
+ * @returns Returns the underlying token
  */
 export function createVestingToken(
-  vestingToken: Address,
-  underlyingToken: Address,
+  vestingTokenAddress: Address,
+  underlyingTokenAddress: Address,
   event: ethereum.Event,
   version: string,
-): VestingToken {
+): UnderlyingToken {
   // Create the VestingToken entity
-  let entity = new VestingToken(vestingToken.toHex())
+  let entity = new VestingToken(vestingTokenAddress.toHex())
 
   // Add the vesting token metadata
-  const contract = ERC20Metadata.bind(vestingToken)
+  const contract = ERC20Metadata.bind(vestingTokenAddress)
   entity.name = contract.name()
   entity.symbol = contract.symbol()
   entity.decimals = contract.decimals()
@@ -29,8 +31,8 @@ export function createVestingToken(
   entity.holdersCount = 0
 
   // Add the token to redeem (the unlock token)
-  const redeemToken = ensureRedeemToken(underlyingToken)
-  entity.redeemToken = redeemToken.id
+  const underlyingToken = ensureUnderlyingToken(underlyingTokenAddress)
+  entity.underlyingToken = underlyingToken.id
 
   // Add the transaction related metadata
   entity.deployer = event.transaction.from.toHex()
@@ -44,7 +46,7 @@ export function createVestingToken(
   // Save the VestingToken
   entity.save()
 
-  return entity
+  return underlyingToken
 }
 
 export function getVestingToken(address: Address): VestingToken | null {
