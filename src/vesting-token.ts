@@ -3,7 +3,6 @@ import {
   Claim as ClaimEvent,
   Initialized as InitializedEvent,
   Transfer as TransferEvent,
-  MilestoneReached as MilestoneReachedEvent,
   VestingTokenV3 as VestingTokenContract,
 } from '../generated/templates/VestingTokenV3/VestingTokenV3'
 
@@ -102,8 +101,4 @@ export function handleTransfer(event: TransferEvent): void {
     toUserBalance.transferredIn = toUserBalance.transferredIn.plus(event.params.value)
     toUserBalance.save()
   }
-}
-
-export function handleMilestoneReached(event: MilestoneReachedEvent): void {
-  // TODO: Handle this event.
 }

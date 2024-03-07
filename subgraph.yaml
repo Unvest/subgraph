@@ -147,6 +147,4 @@ templates:
           handler: handleClaim
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
-        - event: MilestoneReached(indexed uint256,uint64)
-          handler: handleTransfer
       file: ./src/vesting-token.ts
