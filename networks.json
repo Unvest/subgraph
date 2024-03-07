@@ -1,56 +1,70 @@
 {
   "mainnet": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 16672033
     }
   },
   "optimism": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x07A1eB6f6339DAf50ce17230b866dc9B30806B88",
       "startBlock": 75734781
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0x1324C2dEa55DDB5e2dDD808698E38CdB92Dfd0be",
+      "startBlock": 117090274
     }
   },
   "bsc": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 25839683
     }
   },
   "matic": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 39519545
     }
   },
   "arbitrum-one": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 62869309
     }
   },
   "avalanche": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 26516754
     }
   },
   "goerli": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 8637150
     }
   },
   "mumbai": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 32986606
     }
   },
   "optimism-goerli": {
-    "VestingTokenFactory": {
+    "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 6561829
+    }
+  },
+  "sepolia": {
+    "VestingTokenFactoryV2": {
+      "address": "0x000000000000000000000000000000000000dEaD",
+      "startBlock": 5430918
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0x1324C2dEa55DDB5e2dDD808698E38CdB92Dfd0be",
+      "startBlock": 5430918
     }
   }
 }

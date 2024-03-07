@@ -1,12 +1,14 @@
-specVersion: 0.0.5
+specVersion: 1.1.0
+description: Unvest Protocol Subgraph
+repository: https://github.com/Unvest/subgraph
 schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: VestingTokenFactory
+    name: VestingTokenFactoryV2
     network: optimism
     source:
-      abi: VestingTokenFactory
+      abi: VestingTokenFactoryV2
       address: "0x07A1eB6f6339DAf50ce17230b866dc9B30806B88"
       startBlock: 75734781
     mapping:
@@ -17,25 +19,76 @@ dataSources:
         - Platform
         - RedeemToken
         - VestingToken
+        - VestingTokenFactory
         - UserBalance
         - VestingBalance
       abis:
-        - name: VestingTokenFactory
-          file: ./abis/VestingTokenFactory.json
-        - name: VestingToken
-          file: ./abis/VestingToken.json
+        - name: VestingTokenFactoryV2
+          file: ./abis/VestingTokenFactoryV2.json
+        - name: VestingTokenV2
+          file: ./abis/VestingTokenV2.json
         - name: ERC20Metadata
           file: ./abis/ERC20Metadata.json
       eventHandlers:
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
         - event: VestingTokenCreated(indexed address,address)
-          handler: handleVestingTokenCreated
-      file: ./src/vesting-token-factory.ts
-templates:
-  - kind: ethereum/contract
-    name: VestingToken
+          handler: handleVestingTokenV2Created
+        - event: FeeCollectorChange(indexed address)
+          handler: handleFeeCollectorChange
+        - event: FeePercentageChange(uint64)
+          handler: handleFeePercentageChange
+      file: ./src/vesting-token-factory-v2.ts
+  - kind: ethereum
+    name: VestingTokenFactoryV3
     network: optimism
     source:
-      abi: VestingToken
+      abi: VestingTokenFactoryV3
+      address: "0x1324C2dEa55DDB5e2dDD808698E38CdB92Dfd0be"
+      startBlock: 117090274
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CustomClaimFeeChange
+        - CustomClaimFeeToggle
+        - CustomTransferFeeChange
+        - CustomTransferFeeToggle
+        - FeeCollectorChange
+        - GlobalClaimFeeChange
+        - GlobalTransferFeeChange
+        - OwnershipTransferred
+        - VestingTokenCreated
+      abis:
+        - name: VestingTokenFactoryV3
+          file: ./abis/VestingTokenFactoryV3.json
+      eventHandlers:
+        - event: VestingTokenCreated(indexed address,address)
+          handler: handleVestingTokenV3Created
+        - event: CustomClaimFeeChange(indexed address,uint64)
+          handler: handleCustomClaimFeeChange
+        - event: CustomClaimFeeToggle(indexed address,bool)
+          handler: handleCustomClaimFeeToggle
+        - event: CustomTransferFeeChange(indexed address,uint64)
+          handler: handleCustomTransferFeeChange
+        - event: CustomTransferFeeToggle(indexed address,bool)
+          handler: handleCustomTransferFeeToggle
+        - event: FeeCollectorChange(indexed address)
+          handler: handleFeeCollectorChange
+        - event: GlobalClaimFeeChange(uint64)
+          handler: handleGlobalClaimFeeChange
+        - event: GlobalTransferFeeChange(uint64)
+          handler: handleGlobalTransferFeeChange
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/vesting-token-factory-v3.ts
+templates:
+  - kind: ethereum/contract
+    name: VestingTokenV2
+    network: optimism
+    source:
+      abi: VestingTokenV2
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -50,8 +103,10 @@ templates:
         - Claim
         - Transfer
       abis:
-        - name: VestingToken
-          file: ./abis/VestingToken.json
+        - name: VestingTokenV2
+          file: ./abis/VestingTokenV2.json
+        - name: VestingTokenV3
+          file: ./abis/VestingTokenV3.json
         - name: ERC20Metadata
           file: ./abis/ERC20Metadata.json
       eventHandlers:
@@ -60,5 +115,38 @@ templates:
         - event: Claim(indexed address,uint256)
           handler: handleClaim
         - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+      file: ./src/vesting-token.ts
+  - kind: ethereum/contract
+    name: VestingTokenV3
+    network: optimism
+    source:
+      abi: VestingTokenV3
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Platform
+        - RedeemToken
+        - VestingToken
+        - UserBalance
+        - VestingBalance
+        - Initialized
+        - Claim
+        - Transfer
+      abis:
+        - name: VestingTokenV3
+          file: ./abis/VestingTokenV3.json
+        - name: ERC20Metadata
+          file: ./abis/ERC20Metadata.json
+      eventHandlers:
+        - event: Initialized(uint64)
+          handler: handleInitialized
+        - event: Claim(indexed address,uint256)
+          handler: handleClaim
+        - event: Transfer(indexed address,indexed address,uint256)
+          handler: handleTransfer
+        - event: MilestoneReached(indexed uint256,uint64)
           handler: handleTransfer
       file: ./src/vesting-token.ts

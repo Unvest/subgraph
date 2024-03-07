@@ -1,3 +1,56 @@
+enum ProtocolVersion {
+  v2
+  v3
+}
+
+# VestingTokenFactory
+type VestingTokenFactory @entity {
+  id: String! # address
+  # Fee collector
+  feeCollector: Bytes!
+  # Transfer Fee
+  currentGlobalTransferFee: BigInt!
+  nextGlobalTransferFee: BigInt!
+  nextGlobalTransferFeeTime: BigInt!
+  # Claim Fee
+  currentGlobalClaimFee: BigInt!
+  nextGlobalClaimFee: BigInt!
+  nextGlobalClaimFeeTime: BigInt!
+  # Tx info
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  # Misc
+  version: ProtocolVersion!
+}
+
+type VestingTokenCustomTransferFee @entity {
+  id: Bytes!
+  isEnabled: Boolean!
+  currentCustomValue: BigInt!
+  nextCustomValue: BigInt!
+  nextChangeAt: BigInt!
+  willBeEnabled: Boolean!
+  enableChangeAt: BigInt!
+
+  vestingToken: VestingToken!
+
+  updatedAt: BigInt!
+}
+type VestingTokenCustomClaimFee @entity {
+  id: Bytes!
+  isEnabled: Boolean!
+  currentCustomValue: BigInt!
+  nextCustomValue: BigInt!
+  nextChangeAt: BigInt!
+  willBeEnabled: Boolean!
+  enableChangeAt: BigInt!
+
+  vestingToken: VestingToken!
+
+  updatedAt: BigInt!
+}
+
 # Redeem tokens (ERC20)
 type RedeemToken @entity(immutable: true) {
   id: String! # address
@@ -7,7 +60,7 @@ type RedeemToken @entity(immutable: true) {
   vestingTokens: [VestingToken!]! @derivedFrom(field: "redeemToken")
 }
 
-# LiquidVestingTokenFactory
+# VestingToken
 type VestingToken @entity {
   id: String! # address
   name: String!
@@ -30,15 +83,11 @@ type VestingToken @entity {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
-}
-
-# LiquidVestingToken
-type Initialized @entity(immutable: true) {
-  id: Bytes!
-  version: Int! # uint8
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+  # Misc
+  version: ProtocolVersion!
+  # Custom tranfer fee
+  customTransferFee: VestingTokenCustomTransferFee @derivedFrom(field: "vestingToken")
+  customClaimFee: VestingTokenCustomClaimFee @derivedFrom(field: "vestingToken")
 }
 
 type Claim @entity(immutable: true) {
