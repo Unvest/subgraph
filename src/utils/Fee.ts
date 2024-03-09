@@ -10,6 +10,22 @@ export function updateFactoryFeeCollector(factory: VestingTokenFactory, newFeeCo
   factory.save()
 }
 
+export function updateFactoryGlobalCreationFee(
+  factory: VestingTokenFactory,
+  event: ethereum.Event,
+  newGlobalCreationFee: BigInt,
+): void {
+  // Update the previous global creation fee is applicable.
+  if (factory.nextGlobalCreationFeeTime <= event.block.timestamp) {
+    factory.currentGlobalCreationFee = factory.nextGlobalCreationFeeTime
+  }
+
+  factory.nextGlobalCreationFee = newGlobalCreationFee
+  factory.nextGlobalCreationFeeTime = event.block.timestamp.plus(ONE_HOUR)
+
+  factory.save()
+}
+
 export function updateFactoryGlobalTransferFee(
   factory: VestingTokenFactory,
   event: ethereum.Event,

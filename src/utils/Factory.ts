@@ -18,12 +18,18 @@ export function ensureVestingTokenFactory(event: ethereum.Event, version: string
   if (version === 'v3') {
     const contractV3 = VestingTokenFactoryV3.bind(event.address)
 
-    const transferFeeData = contractV3.transferFeeData(Address.zero())
+    const creationFeeData = contractV3.creationFeeData(Address.zero())
 
     // Fee collector
-    factory.feeCollector = transferFeeData.getFeeCollectorAddress()
+    factory.feeCollector = creationFeeData.getFeeCollectorAddress()
+
+    // Creation Fee
+    factory.currentGlobalCreationFee = creationFeeData.getCreationFeeValue()
+    factory.nextGlobalCreationFee = creationFeeData.getCreationFeeValue()
+    factory.nextGlobalCreationFeeTime = event.block.number
 
     // Transfer Fee
+    const transferFeeData = contractV3.transferFeeData(Address.zero())
     factory.currentGlobalTransferFee = transferFeeData.getTransferFeePercentage()
     factory.nextGlobalTransferFee = transferFeeData.getTransferFeePercentage()
     factory.nextGlobalTransferFeeTime = event.block.number

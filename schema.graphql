@@ -8,6 +8,10 @@ type VestingTokenFactory @entity {
   id: String! # address
   # Fee collector
   feeCollector: Bytes!
+  # Creation Fee
+  currentGlobalCreationFee: BigInt!
+  nextGlobalCreationFee: BigInt!
+  nextGlobalCreationFeeTime: BigInt!
   # Transfer Fee
   currentGlobalTransferFee: BigInt!
   nextGlobalTransferFee: BigInt!
@@ -24,6 +28,22 @@ type VestingTokenFactory @entity {
   version: ProtocolVersion!
 }
 
+# CustomCreationFee for the underlying token
+type CustomCreationFee @entity {
+  id: Bytes!
+  isEnabled: Boolean!
+  currentCustomValue: BigInt!
+  nextCustomValue: BigInt!
+  nextChangeAt: BigInt!
+  willBeEnabled: Boolean!
+  enableChangeAt: BigInt!
+
+  underlyingToken: UnderlyingToken!
+
+  updatedAt: BigInt!
+}
+
+# CustomTransferFee for the underlying token
 type CustomTransferFee @entity {
   id: Bytes!
   isEnabled: Boolean!
@@ -37,6 +57,8 @@ type CustomTransferFee @entity {
 
   updatedAt: BigInt!
 }
+
+# CustomClaimFee for the underlying token
 type CustomClaimFee @entity {
   id: Bytes!
   isEnabled: Boolean!
@@ -60,6 +82,7 @@ type UnderlyingToken @entity(immutable: true) {
   # Vesting tokens
   vestingTokens: [VestingToken!]! @derivedFrom(field: "underlyingToken")
   # Custom fees
+  customCreationFee: CustomCreationFee @derivedFrom(field: "underlyingToken")
   customTransferFee: CustomTransferFee @derivedFrom(field: "underlyingToken")
   customClaimFee: CustomClaimFee @derivedFrom(field: "underlyingToken")
 }

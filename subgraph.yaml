@@ -16,7 +16,6 @@ dataSources:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Platform
         - UnderlyingToken
         - VestingToken
         - VestingTokenFactory
@@ -44,22 +43,25 @@ dataSources:
     network: optimism
     source:
       abi: VestingTokenFactoryV3
-      address: "0x208D9FB018dE04B31D5495691BE51CB5205d5cD5"
-      startBlock: 117096931
+      address: "0x79c9F4712676429849240Bc837C9ae3EE0839a1a"
+      startBlock: 117174355
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - CustomClaimFeeChange
-        - CustomClaimFeeToggle
-        - CustomTransferFeeChange
-        - CustomTransferFeeToggle
-        - FeeCollectorChange
-        - GlobalClaimFeeChange
-        - GlobalTransferFeeChange
-        - OwnershipTransferred
-        - VestingTokenCreated
+        - VestingTokenFactory
+        - CustomCreationFee
+        - CustomTransferFee
+        - CustomClaimFee
+        - UnderlyingToken
+        - VestingToken
+        - Claim
+        - Transfer
+        - DistributionBatch
+        - VestingBalance
+        - HolderBalance
+        - Milestone
       abis:
         - name: VestingTokenFactoryV3
           file: ./abis/VestingTokenFactoryV3.json
@@ -70,6 +72,10 @@ dataSources:
           handler: handleCustomClaimFeeChange
         - event: CustomClaimFeeToggle(indexed address,bool)
           handler: handleCustomClaimFeeToggle
+        - event: CustomCreationFeeChange(indexed address,uint64)
+          handler: handleCustomCreationFeeChange
+        - event: CustomCreationFeeToggle(indexed address,bool)
+          handler: handleCustomCreationFeeToggle
         - event: CustomTransferFeeChange(indexed address,uint64)
           handler: handleCustomTransferFeeChange
         - event: CustomTransferFeeToggle(indexed address,bool)
@@ -78,6 +84,8 @@ dataSources:
           handler: handleFeeCollectorChange
         - event: GlobalClaimFeeChange(uint64)
           handler: handleGlobalClaimFeeChange
+        - event: GlobalCreationFeeChange(uint64)
+          handler: handleGlobalCreationFeeChange
         - event: GlobalTransferFeeChange(uint64)
           handler: handleGlobalTransferFeeChange
         - event: OwnershipTransferred(indexed address,indexed address)
@@ -94,14 +102,14 @@ templates:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Platform
         - UnderlyingToken
         - VestingToken
-        - UserBalance
-        - VestingBalance
-        - Initialized
         - Claim
         - Transfer
+        - DistributionBatch
+        - VestingBalance
+        - HolderBalance
+        - Milestone
       abis:
         - name: VestingTokenV2
           file: ./abis/VestingTokenV2.json
@@ -127,14 +135,14 @@ templates:
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Platform
         - UnderlyingToken
         - VestingToken
-        - UserBalance
-        - VestingBalance
-        - Initialized
         - Claim
         - Transfer
+        - DistributionBatch
+        - VestingBalance
+        - HolderBalance
+        - Milestone
       abis:
         - name: VestingTokenV3
           file: ./abis/VestingTokenV3.json
