@@ -47,6 +47,11 @@ export function ensureVestingTokenFactory(event: ethereum.Event, version: string
     // Fee collector
     factory.feeCollector = feeData.feeCollector
 
+    // Creation Fee
+    factory.currentGlobalCreationFee = BigInt.zero()
+    factory.nextGlobalCreationFee = BigInt.zero()
+    factory.nextGlobalCreationFeeTime = event.block.number
+
     // Transfer Fee
     factory.currentGlobalTransferFee = feeData.feePercentage
     factory.nextGlobalTransferFee = feeData.feePercentage
