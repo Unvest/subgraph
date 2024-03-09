@@ -20,9 +20,9 @@ export function ensureCustomClaimFee(underlyingToken: UnderlyingToken, event: et
     customClaimFee.isEnabled = false
     customClaimFee.currentCustomValue = BigInt.zero()
     customClaimFee.nextCustomValue = BigInt.zero()
-    customClaimFee.nextChangeAt = BigInt.zero()
-    customClaimFee.willBeEnabled = false
-    customClaimFee.enableChangeAt = BigInt.zero()
+    customClaimFee.valueChangeAt = BigInt.zero()
+    customClaimFee.nextEnableState = false
+    customClaimFee.statusChangeAt = BigInt.zero()
 
     customClaimFee.underlyingToken = underlyingToken.id
 
@@ -39,12 +39,12 @@ export function updateVestingTokenCustomClaimFeeValue(
   let customClaimFee = ensureCustomClaimFee(underlyingToken, event)
 
   // Update the previous custom transfer fee is applicable.
-  if (customClaimFee.nextChangeAt <= event.block.timestamp) {
-    customClaimFee.currentCustomValue = customClaimFee.nextChangeAt
+  if (customClaimFee.valueChangeAt <= event.block.timestamp) {
+    customClaimFee.currentCustomValue = customClaimFee.valueChangeAt
   }
 
   customClaimFee.nextCustomValue = event.params.claimFeeValue
-  customClaimFee.nextChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customClaimFee.valueChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customClaimFee.save()
 }
@@ -56,12 +56,12 @@ export function updateVestingTokenCustomClaimFeeToggle(
   let customClaimFee = ensureCustomClaimFee(underlyingToken, event)
 
   // Update the previous custom transfer fee enabled state is applicable.
-  if (customClaimFee.enableChangeAt <= event.block.timestamp) {
-    customClaimFee.isEnabled = customClaimFee.willBeEnabled
+  if (customClaimFee.statusChangeAt <= event.block.timestamp) {
+    customClaimFee.isEnabled = customClaimFee.nextEnableState
   }
 
-  customClaimFee.willBeEnabled = event.params.enable
-  customClaimFee.enableChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customClaimFee.nextEnableState = event.params.enable
+  customClaimFee.statusChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customClaimFee.save()
 }

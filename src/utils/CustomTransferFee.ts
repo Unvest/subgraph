@@ -20,9 +20,9 @@ export function ensureCustomTransferFee(underlyingToken: UnderlyingToken, event:
     customTransferFee.isEnabled = false
     customTransferFee.currentCustomValue = BigInt.zero()
     customTransferFee.nextCustomValue = BigInt.zero()
-    customTransferFee.nextChangeAt = BigInt.zero()
-    customTransferFee.willBeEnabled = false
-    customTransferFee.enableChangeAt = BigInt.zero()
+    customTransferFee.valueChangeAt = BigInt.zero()
+    customTransferFee.nextEnableState = false
+    customTransferFee.statusChangeAt = BigInt.zero()
 
     customTransferFee.underlyingToken = underlyingToken.id
 
@@ -39,12 +39,12 @@ export function updateVestingTokenCustomTransferFeeValue(
   let customTransferFee = ensureCustomTransferFee(underlyingToken, event)
 
   // Update the previous custom transfer fee is applicable.
-  if (customTransferFee.nextChangeAt <= event.block.timestamp) {
-    customTransferFee.currentCustomValue = customTransferFee.nextChangeAt
+  if (customTransferFee.valueChangeAt <= event.block.timestamp) {
+    customTransferFee.currentCustomValue = customTransferFee.valueChangeAt
   }
 
   customTransferFee.nextCustomValue = event.params.transferFeePercentage
-  customTransferFee.nextChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customTransferFee.valueChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customTransferFee.save()
 }
@@ -56,12 +56,12 @@ export function updateVestingTokenCustomTransferFeeToggle(
   let customTransferFee = ensureCustomTransferFee(underlyingToken, event)
 
   // Update the previous custom transfer fee enabled state is applicable.
-  if (customTransferFee.enableChangeAt <= event.block.timestamp) {
-    customTransferFee.isEnabled = customTransferFee.willBeEnabled
+  if (customTransferFee.statusChangeAt <= event.block.timestamp) {
+    customTransferFee.isEnabled = customTransferFee.nextEnableState
   }
 
-  customTransferFee.willBeEnabled = event.params.enable
-  customTransferFee.enableChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customTransferFee.nextEnableState = event.params.enable
+  customTransferFee.statusChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customTransferFee.save()
 }

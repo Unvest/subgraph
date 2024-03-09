@@ -20,9 +20,9 @@ export function ensureCustomCreationFee(underlyingToken: UnderlyingToken, event:
     customCreationFee.isEnabled = false
     customCreationFee.currentCustomValue = BigInt.zero()
     customCreationFee.nextCustomValue = BigInt.zero()
-    customCreationFee.nextChangeAt = BigInt.zero()
-    customCreationFee.willBeEnabled = false
-    customCreationFee.enableChangeAt = BigInt.zero()
+    customCreationFee.valueChangeAt = BigInt.zero()
+    customCreationFee.nextEnableState = false
+    customCreationFee.statusChangeAt = BigInt.zero()
 
     customCreationFee.underlyingToken = underlyingToken.id
 
@@ -39,12 +39,12 @@ export function updateVestingTokenCustomCreationFeeValue(
   let customCreationFee = ensureCustomCreationFee(underlyingToken, event)
 
   // Update the previous custom transfer fee is applicable.
-  if (customCreationFee.nextChangeAt <= event.block.timestamp) {
-    customCreationFee.currentCustomValue = customCreationFee.nextChangeAt
+  if (customCreationFee.valueChangeAt <= event.block.timestamp) {
+    customCreationFee.currentCustomValue = customCreationFee.valueChangeAt
   }
 
   customCreationFee.nextCustomValue = event.params.creationFeeValue
-  customCreationFee.nextChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customCreationFee.valueChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customCreationFee.save()
 }
@@ -56,12 +56,12 @@ export function updateVestingTokenCustomCreationFeeToggle(
   let customCreationFee = ensureCustomCreationFee(underlyingToken, event)
 
   // Update the previous custom transfer fee enabled state is applicable.
-  if (customCreationFee.enableChangeAt <= event.block.timestamp) {
-    customCreationFee.isEnabled = customCreationFee.willBeEnabled
+  if (customCreationFee.statusChangeAt <= event.block.timestamp) {
+    customCreationFee.isEnabled = customCreationFee.nextEnableState
   }
 
-  customCreationFee.willBeEnabled = event.params.enable
-  customCreationFee.enableChangeAt = event.block.timestamp.plus(ONE_HOUR)
+  customCreationFee.nextEnableState = event.params.enable
+  customCreationFee.statusChangeAt = event.block.timestamp.plus(ONE_HOUR)
 
   customCreationFee.save()
 }

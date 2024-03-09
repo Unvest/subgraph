@@ -31,12 +31,18 @@ type VestingTokenFactory @entity {
 # CustomCreationFee for the underlying token
 type CustomCreationFee @entity {
   id: Bytes!
+  "Indicates if the custom fee is currently enabled."
   isEnabled: Boolean!
+  "The current fee value in wei."
   currentCustomValue: BigInt!
+  "The new fee value in wei to be applied at `valueChangeAt`."
   nextCustomValue: BigInt!
-  nextChangeAt: BigInt!
-  willBeEnabled: Boolean!
-  enableChangeAt: BigInt!
+  "Timestamp at which a new fee value becomes effective."
+  valueChangeAt: BigInt!
+  "Indicates the future state of `isEnabled` after `statusChangeAt`."
+  nextEnableState: Boolean!
+  "Timestamp at which the change to `isEnabled` becomes effective."
+  statusChangeAt: BigInt!
 
   underlyingToken: UnderlyingToken!
 
@@ -46,12 +52,18 @@ type CustomCreationFee @entity {
 # CustomTransferFee for the underlying token
 type CustomTransferFee @entity {
   id: Bytes!
+  "Indicates if the custom fee is currently enabled."
   isEnabled: Boolean!
+  "The current fee value in wei."
   currentCustomValue: BigInt!
+  "The new fee value in wei to be applied at `valueChangeAt`."
   nextCustomValue: BigInt!
-  nextChangeAt: BigInt!
-  willBeEnabled: Boolean!
-  enableChangeAt: BigInt!
+  "Timestamp at which a new fee value becomes effective."
+  valueChangeAt: BigInt!
+  "Indicates the future state of `isEnabled` after `statusChangeAt`."
+  nextEnableState: Boolean!
+  "Timestamp at which the change to `isEnabled` becomes effective."
+  statusChangeAt: BigInt!
 
   underlyingToken: UnderlyingToken!
 
@@ -61,12 +73,18 @@ type CustomTransferFee @entity {
 # CustomClaimFee for the underlying token
 type CustomClaimFee @entity {
   id: Bytes!
+  "Indicates if the custom fee is currently enabled."
   isEnabled: Boolean!
+  "The current fee value in wei."
   currentCustomValue: BigInt!
+  "The new fee value in wei to be applied at `valueChangeAt`."
   nextCustomValue: BigInt!
-  nextChangeAt: BigInt!
-  willBeEnabled: Boolean!
-  enableChangeAt: BigInt!
+  "Timestamp at which a new fee value becomes effective."
+  valueChangeAt: BigInt!
+  "Indicates the future state of `isEnabled` after `statusChangeAt`."
+  nextEnableState: Boolean!
+  "Timestamp at which the change to `isEnabled` becomes effective."
+  statusChangeAt: BigInt!
 
   underlyingToken: UnderlyingToken!
 
