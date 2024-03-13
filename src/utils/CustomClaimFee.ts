@@ -1,4 +1,4 @@
-import { BigInt, Value, ethereum } from '@graphprotocol/graph-ts'
+import { BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
 
 import { CustomClaimFee, UnderlyingToken } from '../../generated/schema'
 import {
@@ -12,7 +12,7 @@ import { ONE_HOUR } from './Fee'
  * Instantiates the `CustomClaimFee` in a disabled custom fee state.
  */
 export function ensureCustomClaimFee(underlyingToken: UnderlyingToken, event: ethereum.Event): CustomClaimFee {
-  const underlyingTokenId = Value.fromString(underlyingToken.id).toBytes()
+  const underlyingTokenId = Bytes.fromHexString(underlyingToken.id)
   let customClaimFee = CustomClaimFee.load(underlyingTokenId)
 
   if (!customClaimFee) {

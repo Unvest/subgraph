@@ -1,4 +1,4 @@
-import { BigInt, Value, ethereum } from '@graphprotocol/graph-ts'
+import { BigInt, Bytes, ethereum } from '@graphprotocol/graph-ts'
 
 import { CustomTransferFee, UnderlyingToken } from '../../generated/schema'
 import {
@@ -12,7 +12,7 @@ import { ONE_HOUR } from './Fee'
  * Instantiates the `CustomTransferFee` in a disabled custom fee state.
  */
 export function ensureCustomTransferFee(underlyingToken: UnderlyingToken, event: ethereum.Event): CustomTransferFee {
-  const underlyingTokenId = Value.fromString(underlyingToken.id).toBytes()
+  const underlyingTokenId = Bytes.fromHexString(underlyingToken.id)
   let customTransferFee = CustomTransferFee.load(underlyingTokenId)
 
   if (!customTransferFee) {
