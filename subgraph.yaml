@@ -65,6 +65,10 @@ dataSources:
       abis:
         - name: VestingTokenFactoryV3
           file: ./abis/VestingTokenFactoryV3.json
+        - name: VestingTokenV3
+          file: ./abis/VestingTokenV3.json
+        - name: ERC20Metadata
+          file: ./abis/ERC20Metadata.json
       eventHandlers:
         - event: VestingTokenCreated(indexed address,address)
           handler: handleVestingTokenV3Created
