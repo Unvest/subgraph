@@ -40,7 +40,7 @@ export function updateVestingTokenCustomClaimFeeValue(
 
   // Update the previous custom transfer fee is applicable.
   if (customClaimFee.valueChangeAt <= event.block.timestamp) {
-    customClaimFee.currentCustomValue = customClaimFee.valueChangeAt
+    customClaimFee.currentCustomValue = customClaimFee.nextCustomValue
   }
 
   customClaimFee.nextCustomValue = event.params.claimFeeValue

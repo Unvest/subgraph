@@ -40,7 +40,7 @@ export function updateVestingTokenCustomTransferFeeValue(
 
   // Update the previous custom transfer fee is applicable.
   if (customTransferFee.valueChangeAt <= event.block.timestamp) {
-    customTransferFee.currentCustomValue = customTransferFee.valueChangeAt
+    customTransferFee.currentCustomValue = customTransferFee.nextCustomValue
   }
 
   customTransferFee.nextCustomValue = event.params.transferFeePercentage

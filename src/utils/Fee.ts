@@ -17,7 +17,7 @@ export function updateFactoryGlobalCreationFee(
 ): void {
   // Update the previous global creation fee is applicable.
   if (factory.nextGlobalCreationFeeTime <= event.block.timestamp) {
-    factory.currentGlobalCreationFee = factory.nextGlobalCreationFeeTime
+    factory.currentGlobalCreationFee = factory.nextGlobalCreationFee
   }
 
   factory.nextGlobalCreationFee = newGlobalCreationFee
@@ -49,7 +49,7 @@ export function updateFactoryGlobalClaimFee(
 ): void {
   // Update the previous global claim fee is applicable.
   if (factory.nextGlobalClaimFeeTime <= event.block.timestamp) {
-    factory.currentGlobalClaimFee = factory.nextGlobalClaimFeeTime
+    factory.currentGlobalClaimFee = factory.nextGlobalClaimFee
   }
 
   factory.nextGlobalClaimFee = newGlobalClaimFee
