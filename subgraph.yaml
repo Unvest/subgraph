@@ -6,11 +6,11 @@ schema:
 dataSources:
   - kind: ethereum
     name: VestingTokenFactoryV2
-    network: optimism
+    network: mainnet
     source:
       abi: VestingTokenFactoryV2
-      address: "0x07A1eB6f6339DAf50ce17230b866dc9B30806B88"
-      startBlock: 75734781
+      address: "0x1b76214468f2fba75d82eb3787e0768a85f993c3"
+      startBlock: 16672033
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -40,11 +40,11 @@ dataSources:
       file: ./src/vesting-token-factory-v2.ts
   - kind: ethereum
     name: VestingTokenFactoryV3
-    network: optimism
+    network: mainnet
     source:
       abi: VestingTokenFactoryV3
-      address: "0x79c9F4712676429849240Bc837C9ae3EE0839a1a"
-      startBlock: 117174355
+      address: "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F"
+      startBlock: 19654602
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
@@ -98,7 +98,7 @@ dataSources:
 templates:
   - kind: ethereum/contract
     name: VestingTokenV2
-    network: optimism
+    network: mainnet
     source:
       abi: VestingTokenV2
     mapping:
@@ -131,7 +131,7 @@ templates:
       file: ./src/vesting-token.ts
   - kind: ethereum/contract
     name: VestingTokenV3
-    network: optimism
+    network: mainnet
     source:
       abi: VestingTokenV3
     mapping:

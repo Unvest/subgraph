@@ -3,6 +3,10 @@
     "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 16672033
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 19654602
     }
   },
   "optimism": {
@@ -11,60 +15,98 @@
       "startBlock": 75734781
     },
     "VestingTokenFactoryV3": {
-      "address": "0x79c9F4712676429849240Bc837C9ae3EE0839a1a",
-      "startBlock": 117174355
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 118754466
     }
   },
   "bsc": {
     "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 25839683
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 37855869
+    }
+  },
+  "base": {
+    "VestingTokenFactoryV2": {
+      "address": "0x79c9F4712676429849240Bc837C9ae3EE0839a1a",
+      "startBlock": 13159181
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 13159181
     }
   },
   "matic": {
     "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 39519545
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 55816633
     }
   },
   "arbitrum-one": {
     "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 62869309
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 200970785
     }
   },
   "avalanche": {
     "VestingTokenFactoryV2": {
       "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
       "startBlock": 26516754
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 44196848
     }
   },
-  "goerli": {
+  "blast-mainnet": {
     "VestingTokenFactoryV2": {
-      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
-      "startBlock": 8637150
-    }
-  },
-  "mumbai": {
-    "VestingTokenFactoryV2": {
-      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
-      "startBlock": 32986606
-    }
-  },
-  "optimism-goerli": {
-    "VestingTokenFactoryV2": {
-      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
-      "startBlock": 6561829
+      "address": "0x79c9F4712676429849240Bc837C9ae3EE0839a1a",
+      "startBlock": 2148946
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 2148946
     }
   },
   "sepolia": {
     "VestingTokenFactoryV2": {
-      "address": "0x000000000000000000000000000000000000dEaD",
-      "startBlock": 5430918
+      "address": "0x1b76214468f2fba75d82eb3787e0768a85f993c3",
+      "startBlock": 5662979
     },
     "VestingTokenFactoryV3": {
-      "address": "0x1324C2dEa55DDB5e2dDD808698E38CdB92Dfd0be",
-      "startBlock": 5430918
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 5697064
+    }
+  },
+  "optimism-sepolia": {
+    "VestingTokenFactoryV2": {
+      "address": "0x79c9F4712676429849240Bc837C9ae3EE0839a1a",
+      "startBlock": 2148946
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 10652285
+    }
+  },
+  "base-sepolia": {
+    "VestingTokenFactoryV2": {
+      "address": "0x79c9F4712676429849240Bc837C9ae3EE0839a1a",
+      "startBlock": 2148946
+    },
+    "VestingTokenFactoryV3": {
+      "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
+      "startBlock": 8669411
     }
   }
 }
