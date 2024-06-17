@@ -142,6 +142,7 @@ templates:
         - UnderlyingToken
         - VestingToken
         - Claim
+        - Burn
         - Transfer
         - DistributionBatch
         - VestingBalance
@@ -157,6 +158,8 @@ templates:
           handler: handleInitialized
         - event: Claim(indexed address,uint256)
           handler: handleClaim
+        - event: Burn(indexed address,uint256)
+          handler: handleBurn
         - event: Transfer(indexed address,indexed address,uint256)
           handler: handleTransfer
       file: ./src/vesting-token.ts

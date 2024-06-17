@@ -3,6 +3,11 @@ import { Address, BigInt } from '@graphprotocol/graph-ts'
 import { VestingBalance } from '../../generated/schema'
 import { VestingTokenV3 as VestingTokenContract } from '../../generated/templates/VestingTokenV3/VestingTokenV3'
 
+export function getVestingBalance(vestingTokenAddress: Address): VestingBalance | null {
+  const id = vestingTokenAddress.toHex()
+  return VestingBalance.load(id)
+}
+
 export function updateVestingBalance(
   vestingTokenAddress: Address,
   timestamp: BigInt,

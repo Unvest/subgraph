@@ -142,6 +142,16 @@ type Claim @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
+type Burn @entity(immutable: true) {
+  id: Bytes!
+  vestingToken: VestingToken
+  burner: Bytes! # address
+  amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
 type Transfer @entity(immutable: true) {
   id: Bytes!
   vestingToken: VestingToken

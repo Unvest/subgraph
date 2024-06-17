@@ -1,5 +1,6 @@
-import { Claim, Milestone, Transfer, VestingToken } from '../generated/schema'
+import { Burn, Claim, Milestone, Transfer, VestingToken } from '../generated/schema'
 import {
+  Burn as BurnEvent,
   Claim as ClaimEvent,
   Initialized as InitializedEvent,
   Transfer as TransferEvent,
@@ -7,9 +8,10 @@ import {
 } from '../generated/templates/VestingTokenV3/VestingTokenV3'
 
 import { updateHolderBalance } from './utils/HolderBalance'
-import { updateVestingBalance } from './utils/VestingBalance'
+import { getVestingBalance, updateVestingBalance } from './utils/VestingBalance'
 import { ensureDistributionBatch } from './utils/DistributionBatch'
 import { isMintLVT, isRedeemLVT, isTransferLVT } from './utils/Transfer'
+import { log } from '@graphprotocol/graph-ts'
 
 export function handleInitialized(event: InitializedEvent): void {
   // Create Milestones
@@ -29,7 +31,7 @@ export function handleInitialized(event: InitializedEvent): void {
 
 export function handleClaim(event: ClaimEvent): void {
   const entity = new Claim(event.transaction.hash.concatI32(event.logIndex.toI32()))
-  entity.claimer = event.params.claimer
+  entity.claimer = event.params.account
   entity.amount = event.params.amount
 
   entity.vestingToken = event.address.toHex()
@@ -39,6 +41,37 @@ export function handleClaim(event: ClaimEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+}
+
+export function handleBurn(event: BurnEvent): void {
+  // 1. Create the Burn event
+  const entity = new Burn(event.transaction.hash.concatI32(event.logIndex.toI32()))
+  entity.burner = event.params.account
+  entity.amount = event.params.amount
+
+  entity.vestingToken = event.address.toHex()
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+
+  // 2. Update the holder balance
+  const holderBalance = updateHolderBalance(event.params.account, event.address, event.block.timestamp, false)
+
+  // 3. Subtract to the holder allocation
+  holderBalance.allocation = holderBalance.allocation.minus(event.params.amount)
+  holderBalance.save()
+
+  // 4. Subtract to the vesting allocation
+  let vestingBalance = getVestingBalance(event.address)
+  if (vestingBalance) {
+    vestingBalance.allocation = vestingBalance.allocation.minus(event.params.amount)
+    vestingBalance.save()
+  } else {
+    log.warning('Vesting Balance not found after burning: {}', [event.address.toString()])
+  }
 }
 
 export function handleTransfer(event: TransferEvent): void {
@@ -67,6 +100,7 @@ export function handleTransfer(event: TransferEvent): void {
     /// @dev The RedeemEvent will contain this info aswell
     updateHolderBalance(event.params.from, event.address, event.block.timestamp, true)
   }
+
   // Contract is minting new LVTs to a user
   if (isMintLVT(event.params.from, event.params.to)) {
     const holderBalance = updateHolderBalance(event.params.to, event.address, event.block.timestamp, false)
@@ -92,6 +126,7 @@ export function handleTransfer(event: TransferEvent): void {
     entity.distributionBatch = distributionBatch.id
     entity.save()
   }
+
   // User is transferring LVT to another user
   if (isTransferLVT(event.params.from, event.params.to)) {
     const fromUserBalance = updateHolderBalance(event.params.from, event.address, event.block.timestamp, false)
