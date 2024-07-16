@@ -95,6 +95,70 @@ dataSources:
         - event: OwnershipTransferred(indexed address,indexed address)
           handler: handleOwnershipTransferred
       file: ./src/vesting-token-factory-v3.ts
+  - kind: ethereum
+    name: VestingTokenFactoryV3_1
+    network: mainnet
+    source:
+      abi: VestingTokenFactoryV3_1
+      address: "0x934f1d13adc07ea112dabef4fa21d7639895b3e4"
+      startBlock: 20320392
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - VestingTokenFactory
+        - CustomCreationFee
+        - CustomTransferFee
+        - CustomClaimFee
+        - PermanentFees
+        - UnderlyingToken
+        - VestingToken
+        - Claim
+        - Transfer
+        - DistributionBatch
+        - VestingBalance
+        - HolderBalance
+        - Milestone
+      abis:
+        - name: VestingTokenFactoryV3
+          file: ./abis/VestingTokenFactoryV3.json
+        - name: VestingTokenFactoryV3_1
+          file: ./abis/VestingTokenFactoryV3_1.json
+        - name: VestingTokenV3
+          file: ./abis/VestingTokenV3.json
+        - name: VestingTokenV3_1
+          file: ./abis/VestingTokenV3_1.json
+        - name: ERC20Metadata
+          file: ./abis/ERC20Metadata.json
+      eventHandlers:
+        - event: VestingTokenCreated(indexed address,address)
+          handler: handleVestingTokenV3_1Created
+        - event: CustomClaimFeeChange(indexed address,uint64)
+          handler: handleCustomClaimFeeChange
+        - event: CustomClaimFeeToggle(indexed address,bool)
+          handler: handleCustomClaimFeeToggle
+        - event: CustomCreationFeeChange(indexed address,uint64)
+          handler: handleCustomCreationFeeChange
+        - event: CustomCreationFeeToggle(indexed address,bool)
+          handler: handleCustomCreationFeeToggle
+        - event: CustomTransferFeeChange(indexed address,uint64)
+          handler: handleCustomTransferFeeChange
+        - event: CustomTransferFeeToggle(indexed address,bool)
+          handler: handleCustomTransferFeeToggle
+        - event: FeeCollectorChange(indexed address)
+          handler: handleFeeCollectorChange
+        - event: GlobalClaimFeeChange(uint64)
+          handler: handleGlobalClaimFeeChange
+        - event: GlobalCreationFeeChange(uint64)
+          handler: handleGlobalCreationFeeChange
+        - event: GlobalTransferFeeChange(uint64)
+          handler: handleGlobalTransferFeeChange
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+        - event: CustomPermFeeChange(indexed address,bool,uint64,uint64)
+          handler: handleCustomPermanentFeeChange
+      file: ./src/vesting-token-factory-v3_1.ts
 templates:
   - kind: ethereum/contract
     name: VestingTokenV2

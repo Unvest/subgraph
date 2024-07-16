@@ -7,6 +7,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 19654602
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 20320392
     }
   },
   "optimism": {
@@ -17,6 +21,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 118754466
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 122774365
     }
   },
   "bsc": {
@@ -27,6 +35,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 37855869
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 40527998
     }
   },
   "base": {
@@ -37,6 +49,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 13159181
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 17179113
     }
   },
   "matic": {
@@ -47,6 +63,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 55816633
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 59436969
     }
   },
   "arbitrum-one": {
@@ -57,6 +77,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 200970785
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 232865263
     }
   },
   "avalanche": {
@@ -67,6 +91,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 44196848
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 48049529
     }
   },
   "blast-mainnet": {
@@ -77,6 +105,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 2148946
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 6169262
     }
   },
   "sepolia": {
@@ -87,6 +119,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 5697064
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 6322163
     }
   },
   "optimism-sepolia": {
@@ -97,6 +133,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 10652285
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 14672428
     }
   },
   "base-sepolia": {
@@ -107,6 +147,10 @@
     "VestingTokenFactoryV3": {
       "address": "0xEE89b02Fc0F4e401F12227A2639dff3a035F3C6F",
       "startBlock": 8669411
+    },
+    "VestingTokenFactoryV3_1": {
+      "address": "0x934f1d13adc07ea112dabef4fa21d7639895b3e4",
+      "startBlock": 12689454
     }
   }
 }

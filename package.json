@@ -38,10 +38,10 @@
     "deploy:all": "pnpm deploy:all-testnets && pnpm deploy:all-mainnets"
   },
   "devDependencies": {
-    "@graphprotocol/graph-cli": "^0.70.0",
-    "@graphprotocol/graph-ts": "^0.35.0",
-    "@typescript-eslint/eslint-plugin": "^7.7.0",
-    "@typescript-eslint/parser": "^7.7.0",
+    "@graphprotocol/graph-cli": "^0.78.0",
+    "@graphprotocol/graph-ts": "^0.35.1",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "eslint": "^9.1.0",
     "eslint-config-prettier": "^9.1.0",
     "matchstick-as": "^0.6.0"

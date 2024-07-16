@@ -1,6 +1,7 @@
 enum ProtocolVersion {
   v2
   v3
+  v3_1
 }
 
 # VestingTokenFactory
@@ -91,6 +92,24 @@ type CustomClaimFee @entity {
   updatedAt: BigInt!
 }
 
+# PermanentFee for the `UnderlyingToken`.
+type UnderlyingTokenPermanentFees @entity {
+  id: Bytes!
+  isEnabled: Boolean!
+  claimFeeValue: BigInt!
+  transferFeePercentage: BigInt!
+  underlyingToken: UnderlyingToken!
+  updatedAt: BigInt!
+}
+
+# PermanentFee for the `VestingToken`.
+type VestingTokenPermanentFees @entity {
+  id: Bytes!
+  claimFeeValue: BigInt!
+  transferFeePercentage: BigInt!
+  vestingToken: VestingToken!
+}
+
 # UnderlyingToken (ERC20)
 type UnderlyingToken @entity(immutable: true) {
   id: String! # address
@@ -103,6 +122,8 @@ type UnderlyingToken @entity(immutable: true) {
   customCreationFee: CustomCreationFee @derivedFrom(field: "underlyingToken")
   customTransferFee: CustomTransferFee @derivedFrom(field: "underlyingToken")
   customClaimFee: CustomClaimFee @derivedFrom(field: "underlyingToken")
+  # Permanent fees
+  permanentFees: UnderlyingTokenPermanentFees @derivedFrom(field: "underlyingToken")
 }
 
 # VestingToken
@@ -128,6 +149,8 @@ type VestingToken @entity {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
+  # Permanent fees
+  permanentFees: VestingTokenPermanentFees @derivedFrom(field: "vestingToken")
   # Misc
   version: ProtocolVersion!
 }

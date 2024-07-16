@@ -1,4 +1,4 @@
-import { Address, BigInt, ethereum, Value } from '@graphprotocol/graph-ts'
+import { Address, BigInt, ethereum, log } from '@graphprotocol/graph-ts'
 
 import { VestingTokenFactory } from '../../generated/schema'
 import { VestingTokenFactoryV2 } from '../../generated/VestingTokenFactoryV2/VestingTokenFactoryV2'
@@ -15,7 +15,7 @@ export function ensureVestingTokenFactory(event: ethereum.Event, version: string
 
   factory = new VestingTokenFactory(factoryId)
 
-  if (version === 'v3') {
+  if (version === 'v3' || version === 'v3_1') {
     const contractV3 = VestingTokenFactoryV3.bind(event.address)
 
     const creationFeeData = contractV3.creationFeeData(Address.zero())
@@ -39,7 +39,7 @@ export function ensureVestingTokenFactory(event: ethereum.Event, version: string
     factory.currentGlobalClaimFee = claimFeeData.getClaimFeeValue()
     factory.nextGlobalClaimFee = claimFeeData.getClaimFeeValue()
     factory.nextGlobalClaimFeeTime = event.block.number
-  } else {
+  } else if (version === 'v2') {
     const contractV2 = VestingTokenFactoryV2.bind(event.address)
 
     const feeData = contractV2.feeData()
@@ -61,6 +61,8 @@ export function ensureVestingTokenFactory(event: ethereum.Event, version: string
     factory.currentGlobalClaimFee = BigInt.zero()
     factory.nextGlobalClaimFee = BigInt.zero()
     factory.nextGlobalClaimFeeTime = event.block.number
+  } else {
+    log.critical('Unknown `VestingTokenFactory` version {}!', [version])
   }
 
   // Tx info
