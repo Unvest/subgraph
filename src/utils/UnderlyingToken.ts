@@ -18,8 +18,8 @@ export function ensureUnderlyingToken(address: Address): UnderlyingToken {
   // Name
   const erc20NameCall = erc20.try_name()
   if (erc20NameCall.reverted) {
-    const erc20Bytes = ERC20BytesMetadata.bind(address)
-    underlyingToken.name = erc20Bytes.name().toString()
+    const erc20BytesNameCall = ERC20BytesMetadata.bind(address).try_name()
+    underlyingToken.name = erc20BytesNameCall.reverted ? "Undetected ERC20 Name" : erc20BytesNameCall.value.toString()
   } else {
     underlyingToken.name = erc20NameCall.value
   }
@@ -27,13 +27,16 @@ export function ensureUnderlyingToken(address: Address): UnderlyingToken {
   // Symbol
   const erc20SymbolCall = erc20.try_symbol()
   if (erc20SymbolCall.reverted) {
-    const erc20Bytes = ERC20BytesMetadata.bind(address)
-    underlyingToken.symbol = erc20Bytes.symbol().toString()
+    const erc20BytesSymbolCall = ERC20BytesMetadata.bind(address).try_symbol()
+    underlyingToken.symbol = erc20BytesSymbolCall.reverted ? "Undetected ERC20 Symbol" : erc20BytesSymbolCall.value.toString()
   } else {
     underlyingToken.symbol = erc20SymbolCall.value
   }
 
-  underlyingToken.decimals = erc20.decimals()
+  // Decimals
+  const erc20DecimalsCall = erc20.try_decimals()
+  underlyingToken.decimals = erc20DecimalsCall.reverted ? 18 : erc20DecimalsCall.value
+
   underlyingToken.save()
 
   return underlyingToken
