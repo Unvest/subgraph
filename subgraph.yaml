@@ -69,6 +69,8 @@ dataSources:
           file: ./abis/VestingTokenV3.json
         - name: ERC20Metadata
           file: ./abis/ERC20Metadata.json
+        - name: ERC20BytesMetadata
+          file: ./abis/ERC20BytesMetadata.json
       eventHandlers:
         - event: VestingTokenCreated(indexed address,address)
           handler: handleVestingTokenV3Created
@@ -131,6 +133,8 @@ dataSources:
           file: ./abis/VestingTokenV3_1.json
         - name: ERC20Metadata
           file: ./abis/ERC20Metadata.json
+        - name: ERC20BytesMetadata
+          file: ./abis/ERC20BytesMetadata.json
       eventHandlers:
         - event: VestingTokenCreated(indexed address,address)
           handler: handleVestingTokenV3_1Created
@@ -217,6 +221,8 @@ templates:
           file: ./abis/VestingTokenV3.json
         - name: ERC20Metadata
           file: ./abis/ERC20Metadata.json
+        - name: ERC20BytesMetadata
+          file: ./abis/ERC20BytesMetadata.json
       eventHandlers:
         - event: Initialized(uint64)
           handler: handleInitialized
